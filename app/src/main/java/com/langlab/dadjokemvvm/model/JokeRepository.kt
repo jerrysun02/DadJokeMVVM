@@ -19,6 +19,5 @@ class JokeRepository:JokeDataSource {
         } catch (e:Exception) {
             return OperationResult.Success(Joke("2222", "00"))
         }
-        return OperationResult.Success(Joke("3333", "00"))
     }
 }

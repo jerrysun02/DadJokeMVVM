@@ -2,12 +2,10 @@ package com.langlab.dadjokemvvm.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.langlab.dadjokemvvm.R
+import com.langlab.dadjokemvvm.databinding.ActivityMainBinding
 import com.langlab.dadjokemvvm.model.Joke
 import com.langlab.dadjokemvvm.viewmodel.JokeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,22 +14,22 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val jokeViewModel: JokeViewModel by viewModels()
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: JokeAdapter
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupViewModel()
         setupUI()
     }
 
     private fun setupUI() {
-        recyclerView = findViewById(R.id.recyclerView)
         adapter = JokeAdapter(jokeViewModel.jokes.value ?: emptyList())
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = adapter
     }
 
     private fun setupViewModel() {
@@ -39,7 +37,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val renderJokes = Observer<List<Joke>> {
-        Log.d("ddd","renderJokes")
         adapter.update(it)
     }
 
