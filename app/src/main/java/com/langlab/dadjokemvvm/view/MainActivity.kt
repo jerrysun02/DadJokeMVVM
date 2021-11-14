@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val jokeViewModel: JokeViewModel by viewModels()
     private lateinit var adapter: JokeAdapter
     private lateinit var binding: ActivityMainBinding
+    private var jokeList = mutableListOf<Joke>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val renderJokes = Observer<List<Joke>> {
-        adapter.update(it)
+        jokeList.addAll(it)
+        jokeList.reverse()
+        adapter.update(jokeList)
         binding.swipeRefreshLayout.isRefreshing = false
     }
 
