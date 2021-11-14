@@ -30,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         adapter = JokeAdapter(jokeViewModel.jokes.value ?: emptyList())
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            jokeViewModel.loadJokes()
+        }
     }
 
     private fun setupViewModel() {
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private val renderJokes = Observer<List<Joke>> {
         adapter.update(it)
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onResume() {
