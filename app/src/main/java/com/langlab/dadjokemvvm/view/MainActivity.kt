@@ -7,17 +7,15 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.langlab.dadjokemvvm.di.Injection
 import com.langlab.dadjokemvvm.R
 import com.langlab.dadjokemvvm.model.Joke
 import com.langlab.dadjokemvvm.viewmodel.JokeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<JokeViewModel> {
-        Injection.provideViewModelFactory()
-    }
-
+    private val jokeViewModel: JokeViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: JokeAdapter
 
@@ -31,13 +29,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupUI() {
         recyclerView = findViewById(R.id.recyclerView)
-        adapter = JokeAdapter(viewModel.jokes.value ?: emptyList())
+        adapter = JokeAdapter(jokeViewModel.jokes.value ?: emptyList())
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
 
     private fun setupViewModel() {
-        viewModel.jokes.observe(this, renderJokes)
+        jokeViewModel.jokes.observe(this, renderJokes)
     }
 
     private val renderJokes = Observer<List<Joke>> {
@@ -47,6 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadJokes()
+        jokeViewModel.loadJokes()
     }
 }

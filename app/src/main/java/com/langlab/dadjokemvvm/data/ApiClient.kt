@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -36,6 +37,6 @@ object ApiClient {
     interface ServiceApiInterface {
         @Headers("Accept: application/json")
         @GET("/")
-        fun jokes(): Call<JokeResponse>
+        suspend fun jokes(): Response<JokeResponse>
     }
 }
