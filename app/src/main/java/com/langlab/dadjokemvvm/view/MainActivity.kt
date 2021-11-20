@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val renderJokes = Observer<List<Joke>> {
+        jokeList.clear()
         jokeList.addAll(it)
         jokeList.reverse()
         adapter.update(jokeList)
