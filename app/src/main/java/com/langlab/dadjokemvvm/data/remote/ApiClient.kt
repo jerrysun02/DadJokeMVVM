@@ -1,9 +1,8 @@
-package com.langlab.dadjokemvvm.data
+package com.langlab.dadjokemvvm.data.remote
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET

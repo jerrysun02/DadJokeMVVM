@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.swipeRefreshLayout.setOnRefreshListener {
-            jokeViewModel.loadJokes()
+            jokeViewModel.loadJokes(this@MainActivity)
         }
     }
 
@@ -49,6 +49,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        jokeViewModel.loadJokes()
+        jokeViewModel.loadJokes(this@MainActivity)
     }
 }
