@@ -20,22 +20,15 @@ class JokeViewModel @ViewModelInject constructor (private val repository: JokeDa
             var result:OperationResult<Joke> = withContext(Dispatchers.IO) {
                 repository.retrieveJokes()
             }
-            when(result) {
-                is OperationResult.Success -> {
-                    val jokeList = mutableListOf<Joke>()
-                    jokeList.add(result.data)
-                    _jokes.value = jokeList
-                    repository.saveJokes(jokeList, context)
 
-                    var result:List<Joke> = withContext(Dispatchers.IO) {
-                        repository.readJokes(context)
-                    }
-                    when(result) {
-                        is List<Joke> -> {
-                            _jokes.value = result
-                        }
-                    }
-                }
+            if (result is OperationResult.Success) {
+                val jokeList = mutableListOf<Joke>()
+                jokeList.add(result.data)
+                repository.saveJokes(jokeList, context)
+            }
+
+            _jokes.value = withContext(Dispatchers.IO) {
+                repository.readJokes(context)
             }
         }
     }

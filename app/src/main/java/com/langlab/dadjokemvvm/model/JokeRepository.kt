@@ -15,10 +15,10 @@ class JokeRepository:JokeDataSource {
                 val joke = Joke(jokeResponse?.id, jokeResponse?.joke)
                 return OperationResult.Success(joke)
             }?:run {
-                return OperationResult.Success(Joke("1111", "00"))
+                return OperationResult.Error(Exception("Occur an error"))
             }
         } catch (e:Exception) {
-            return OperationResult.Success(Joke("2222", "00"))
+            return OperationResult.Error(e)
         }
     }
 
