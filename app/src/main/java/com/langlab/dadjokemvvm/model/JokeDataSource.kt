@@ -1,9 +1,7 @@
 package com.langlab.dadjokemvvm.model
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.langlab.dadjokemvvm.data.OperationResult
-import com.langlab.dadjokemvvm.data.db.JokeDTO
 
 interface JokeDataSource {
     suspend fun retrieveJokes(): OperationResult<Joke>

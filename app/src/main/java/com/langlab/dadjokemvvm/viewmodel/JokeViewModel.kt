@@ -26,20 +26,15 @@ class JokeViewModel @ViewModelInject constructor (private val repository: JokeDa
                     jokeList.add(result.data)
                     _jokes.value = jokeList
                     repository.saveJokes(jokeList, context)
-                    readDBJokes(context)
-                }
-            }
-        }
-    }
 
-    private fun readDBJokes(context: Context) {
-        viewModelScope.launch {
-            var result:List<Joke> = withContext(Dispatchers.IO) {
-                repository.readJokes(context)
-            }
-            when(result) {
-                is List<Joke> -> {
-                    _jokes.value = result
+                    var result:List<Joke> = withContext(Dispatchers.IO) {
+                        repository.readJokes(context)
+                    }
+                    when(result) {
+                        is List<Joke> -> {
+                            _jokes.value = result
+                        }
+                    }
                 }
             }
         }
