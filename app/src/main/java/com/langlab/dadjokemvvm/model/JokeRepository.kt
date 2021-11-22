@@ -30,11 +30,9 @@ class JokeRepository:JokeDataSource {
     }
 
     override suspend fun saveJokes(jokes: List<Joke>, context: Context) {
-        val jokeDTO = JokeDTO(jokes[0].title!!, jokes[0].content)
-        val jokeDTOList = mutableListOf<JokeDTO>()
-        jokeDTOList.add(jokeDTO)
-
         val jokeDbDataSource = JokeDbDataSource(context)
-        jokeDbDataSource.addJokes(jokeDTOList)
+        jokeDbDataSource.addJokes(jokes.map {
+            JokeDTO(it.title!!, it.content)
+        })
     }
 }

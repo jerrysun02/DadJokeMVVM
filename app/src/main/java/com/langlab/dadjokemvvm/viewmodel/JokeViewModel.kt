@@ -22,9 +22,7 @@ class JokeViewModel @ViewModelInject constructor (private val repository: JokeDa
             }
 
             if (result is OperationResult.Success) {
-                val jokeList = mutableListOf<Joke>()
-                jokeList.add(result.data)
-                repository.saveJokes(jokeList, context)
+                repository.saveJokes(listOf(result.data), context)
             }
 
             _jokes.value = withContext(Dispatchers.IO) {
