@@ -1,16 +1,18 @@
 package com.langlab.dadjokemvvm.viewmodel
 
 import android.content.Context
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.langlab.dadjokemvvm.data.OperationResult
 import com.langlab.dadjokemvvm.model.Joke
 import com.langlab.dadjokemvvm.model.JokeDataSource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class JokeViewModel @ViewModelInject constructor (private val repository: JokeDataSource) : ViewModel() {
+@HiltViewModel
+class JokeViewModel @Inject constructor (private val repository: JokeDataSource) : ViewModel() {
 
     private val _jokes = MutableLiveData<List<Joke>>().apply { value = emptyList()}
     val jokes: LiveData<List<Joke>> = _jokes
