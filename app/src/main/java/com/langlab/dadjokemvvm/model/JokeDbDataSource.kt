@@ -6,7 +6,7 @@ import com.langlab.dadjokemvvm.data.db.JokeDTO
 import com.langlab.dadjokemvvm.data.db.JokeDao
 import com.langlab.dadjokemvvm.data.db.JokeDatabase
 
-class JokeDbDataSource(context: Context) {
+class JokeDbDataSource(context: Context): DbDataSource {
     private lateinit var jokeDao:JokeDao
     init {
         val db = JokeDatabase.getInstance(context)
@@ -15,11 +15,11 @@ class JokeDbDataSource(context: Context) {
         }
     }
 
-    fun jokes(): List<JokeDTO> {
+    override fun jokes(): List<JokeDTO> {
         return jokeDao.jokes()
     }
 
-    suspend fun addJokes(jokes: List<JokeDTO>) {
+    override suspend fun addJokes(jokes: List<JokeDTO>) {
         return jokeDao.add(jokes)
     }
 }
